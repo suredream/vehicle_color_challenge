@@ -17,8 +17,9 @@ import csv
 from pathlib import Path
 from PIL import Image
 import argparse
+from tqdm import tqdm
 
-from src.lite_clip import classify_vehicle_with_clip, VALID_COLORS, VALID_TYPES
+from lite_clip import classify_vehicle_with_clip, VALID_COLORS, VALID_TYPES, model
 
 OUT_DIR = Path("out")
 THUMB_DIR = OUT_DIR / "thumbs"
@@ -57,8 +58,10 @@ def main():
     thumbs = sorted(THUMB_DIR.glob("*.png"))
     labels = {p.stem: p for p in LABEL_DIR.glob("*.txt")}
     rows = []
+    if model is None:
+        print("[apply_lite_clip] CLIP model unavailable. No labels will be changed.")
 
-    for t in thumbs:
+    for t in tqdm(thumbs):
         stem = t.stem
         if stem not in labels:
             continue
