@@ -1,0 +1,30 @@
+# Default configuration for the Vehicle Color Detection Challenge (heuristic baseline)
+thumbnail:
+  size: 160
+  pad: 4
+
+gsd:
+  meters_per_px: 0.3  # 30 cm GSD
+
+color:
+  # HSV thresholds use OpenCV ranges: H:0-179, S:0-255, V:0-255
+  # You can fine-tune these on your dataset.
+  enabled: true
+
+shadow:
+  enabled: true
+  median_alpha: 0.7  # threshold = median(V) * alpha
+
+occlusion:
+  enabled: true
+  method: "mask_overlap"  # overlap of masks from other vehicles
+
+type:
+  enabled: true
+  freight_long_edge_m: 9.0
+  freight_aspect_min: 2.5
+  van_long_edge_m: 6.5
+  van_area_m2: 10.0
+  pickup_aspect_min: 2.2
+  pickup_long_edge_min_m: 4.5
+  pickup_long_edge_max_m: 7.5
